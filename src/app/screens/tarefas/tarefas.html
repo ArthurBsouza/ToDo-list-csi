@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-6">
+    <app-title main="Lista de tarefas" sub="Exemplo de lista de tarefas com Angular"></app-title>
+    <div>
+        <input type="text" placeholder="Adicionar nova tarefa" class="input w-full" (keyup.enter)="addTarefa($event,$event.target)"
+        />
+    </div>
+    <div class="flex flex-col gap-2">
+        @for (item of tarefas.items(); track item.id) {
+        <div class="p-4 border border-zinc-800 rounded-lg flex items-center gap-4">
+            <span [class.line-through]="item.completed" class="flex-1">{{ item.title }}</span>
+            <span [class.bg-green-600]="item.completed" [class.bg-yellow-600]="!item.completed"
+                class="px-4 py-1 rounded-full text-sm">{{ item.completed ? 'Concluído' : 'Pendente' }}
+            </span>
+            <div>
+                <button (click)="tarefas.toggle(item.id)" [class.bg-zinc-700]="item.completed"
+                    [class.bg-green-700]="!item.completed" class="btn  mr-2">
+                    <mat-icon fontSet="material-symbols-outlined">
+                        {{ item.completed ? 'undo' : 'check_circle'}}
+                    </mat-icon>
+                </button>
+
+                <button class="btn btn-danger">
+                    <mat-icon (click)="tarefas.remove(item.id)" fontSet="material-symbols-outlined"
+                        class="text-red-600 hover:text-red-400 cursor-pointer">
+                        delete
+                    </mat-icon>
+                </button>
+            </div>
+        </div>
+        }
+    </div>
+</div>
